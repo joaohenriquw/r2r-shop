@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320" width="900" height="320">
+<polygon points="150.00,105.00 182.24,105.00 212.00,160.00 182.24,215.00 150.00,215.00 179.76,160.00" fill="#FF4E00"></polygon>
+<polygon points="226.00,105.00 258.24,105.00 288.00,160.00 258.24,215.00 226.00,215.00 255.76,160.00" fill="#1B1E21"></polygon>
+<g transform="translate(345,222) scale(1.16,1)">
+<text font-family="Archivo, sans-serif" font-size="170" font-weight="900" font-style="italic" letter-spacing="-3">
+<tspan fill="#1B1E21">R</tspan><tspan fill="#FF4E00">2</tspan><tspan fill="#1B1E21">R</tspan>
+</text>
+</g>
+<text x="520" y="262" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="31" font-weight="600" letter-spacing="14" fill="#5A6167">SHOP</text>
+</svg>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Proposta Comercial — noria.solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --teal:    #0D7377;
+  --navy:    #062231;
+  --cream:   #F4EFE6;
+  --coral:   #FF6B5B;
+  --mist:    #7FD1CC;
+  --white:   #FFFFFF;
+  --gray:    #8A9BB0;
+  --light:   #EBF5F5;
+}
+
+body {
+  font-family: 'Inter Tight', sans-serif;
+  background: var(--white);
+  color: var(--navy);
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+h1 { font-size:48px; font-weight:900; letter-spacing:-0.03em; line-height:1.05; }
+h2 { font-size:22px; font-weight:800; letter-spacing:-0.02em; margin:32px 0 12px; }
+h3 { font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray); margin:20px 0 8px; }
+p  { font-size:13px; color:#2D4A5E; margin:6px 0; line-height:1.65; }
+
+.mono { font-family:'JetBrains Mono', monospace; }
+.tag  { font-family:'JetBrains Mono', monospace; color:var(--teal); font-size:11px; font-weight:500; }
+
+/* CAPA */
+.cover {
+  background: var(--navy);
+  color: var(--white);
+  padding: 64px 56px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '<N>';
+  font-family:'JetBrains Mono', monospace;
+  font-size: 220px;
+  font-weight:600;
+  color: rgba(13,115,119,0.12);
+  position:absolute;
+  right: -20px;
+  top: -30px;
+  line-height:1;
+  pointer-events:none;
+}
+.cover .tag-top { color:var(--mist); font-size:12px; margin-bottom:20px; font-family:'JetBrains Mono',monospace; }
+.cover h1 { color:var(--white); font-size:52px; margin-bottom:8px; }
+.cover .subtitle { color:var(--mist); font-size:16px; font-weight:500; margin-bottom:40px; }
+.cover-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:32px; }
+.cover-item { background:rgba(255,255,255,0.05); border:1px solid rgba(127,209,204,0.2); border-radius:8px; padding:12px 16px; }
+.cover-item .label { font-size:10px; color:var(--mist); font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.1em; margin-bottom:4px; }
+.cover-item .val   { font-size:13px; font-weight:600; color:var(--white); }
+.cover-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(13,115,119,0.3); border:1px solid var(--teal); border-radius:20px; padding:4px 12px; font-size:11px; font-family:'JetBrains Mono',monospace; color:var(--mist); margin-top:24px; }
+
+/* SEÇÃO */
+.section { margin:40px 0; }
+.section-header {
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  margin-bottom:20px;
+  padding-bottom:14px;
+  border-bottom:2px solid var(--light);
+}
+.section-num {
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--teal);
+  background:var(--light);
+  padding:4px 10px;
+  border-radius:4px;
+  flex-shrink:0;
+  margin-top:4px;
+}
+.section-header h2 { margin:0; color:var(--navy); }
+
+/* BOXES */
+.box { border-radius:10px; padding:18px 22px; margin:14px 0; }
+.box-teal   { background:var(--light); border-left:4px solid var(--teal); }
+.box-navy   { background:var(--navy); color:var(--white); }
+.box-navy p { color:rgba(255,255,255,0.8); }
+.box-cream  { background:var(--cream); border:1px solid #E0D9CF; }
+.box-coral  { background:#FFF5F4; border-left:4px solid var(--coral); }
+
+/* TABELA */
+table { width:100%; border-collapse:collapse; margin:14px 0; font-size:12px; }
+th { background:var(--navy); color:var(--white); padding:10px 14px; text-align:left; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+td { padding:10px 14px; border-bottom:1px solid #EBF0F5; vertical-align:top; }
+tr:nth-child(even) td { background:#F8FAFB; }
+.td-teal  { color:var(--teal);  font-weight:700; }
+.td-coral { color:var(--coral); font-weight:700; }
+.td-green { color:#1A7A4A;      font-weight:700; }
+.td-bold  { font-weight:700; }
+
+/* CARDS DE PREÇO */
+.price-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:20px 0; }
+.price-card { border:2px solid #DDE8F0; border-radius:12px; padding:20px; text-align:center; }
+.price-card.featured { border-color:var(--teal); background:var(--light); }
+.price-card .pc-label { font-size:9px; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:.12em; color:var(--gray); margin-bottom:10px; }
+.price-card .pc-value { font-size:28px; font-weight:900; color:var(--navy); letter-spacing:-0.03em; }
+.price-card.featured .pc-value { color:var(--teal); }
+.price-card .pc-period { font-size:10px; color:var(--gray); margin:4px 0 10px; }
+.price-card .pc-desc { font-size:11px; color:#4A6478; line-height:1.6; }
+
+/* TOTAL */
+.total-banner {
+  background:var(--navy);
+  border-radius:12px;
+  padding:28px 32px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:20px 0;
+}
+.total-banner .tl-tag { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--mist); text-transform:uppercase; letter-spacing:.1em; }
+.total-banner .tl-val { font-size:48px; font-weight:900; color:var(--white); letter-spacing:-0.04em; line-height:1; margin:6px 0; }
+.total-banner .tl-sub { font-size:11px; color:rgba(255,255,255,0.5); }
+.total-banner .tl-right { text-align:right; }
+.total-banner .tl-right .mini { font-size:12px; color:var(--mist); margin-top:8px; }
+
+/* PAGAMENTO */
+.payment-cards { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0; }
+.pay-card { border-radius:10px; padding:20px; }
+.pay-card-1 { background:var(--light); border:2px solid var(--teal); }
+.pay-card-2 { background:#F0FFF8; border:2px solid #2ECC71; }
+.pay-card .step { font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; }
+.pay-card-1 .step { color:var(--teal); }
+.pay-card-2 .step { color:#1A7A4A; }
+.pay-card .amount { font-size:32px; font-weight:900; letter-spacing:-0.03em; }
+.pay-card-1 .amount { color:var(--teal); }
+.pay-card-2 .amount { color:#1A7A4A; }
+.pay-card .condition { font-size:12px; color:#4A6478; margin-top:8px; line-height:1.5; }
+
+/* FLUXO */
+.flow { margin:14px 0; }
+.flow-step { display:flex; gap:14px; align-items:flex-start; padding:10px 14px; background:#F8FAFB; border-radius:8px; border-left:3px solid var(--teal); margin:6px 0; }
+.flow-step .fn { width:24px; height:24px; border-radius:50%; background:var(--teal); color:var(--white); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; font-family:'JetBrains Mono',monospace; }
+.flow-step .ft { font-size:12px; color:#2D4A5E; line-height:1.5; }
+
+/* TIMELINE */
+.tl-item { display:flex; gap:16px; align-items:flex-start; margin:10px 0; }
+.tl-dot { width:12px; height:12px; border-radius:50%; background:var(--teal); flex-shrink:0; margin-top:4px; }
+.tl-dot.end { background:var(--coral); }
+.tl-text { font-size:12px; color:#2D4A5E; }
+.tl-text strong { color:var(--navy); }
+
+/* CODE BLOCK */
+pre {
+  background:var(--navy);
+  color:#7FD1CC;
+  border-radius:10px;
+  padding:16px 20px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10.5px;
+  line-height:1.75;
+  margin:12px 0;
+  white-space:pre-wrap;
+  word-break:break-all;
+}
+
+code { font-family:'JetBrains Mono',monospace; font-size:11px; background:var(--light); color:var(--teal); padding:2px 6px; border-radius:4px; }
+
+/* PAGE BREAK */
+.page-break { page-break-after:always; margin:48px 0 40px; border-top:1px dashed #C8D8E4; }
+
+/* FOOTER */
+.footer { background:var(--cream); border-radius:10px; padding:18px 24px; margin-top:40px; display:flex; align-items:center; justify-content:space-between; font-size:11px; color:var(--gray); }
+.footer .logo { font-family:'JetBrains Mono',monospace; color:var(--teal); font-weight:600; font-size:13px; }
+
+/* ASSINATURA */
+.sig-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin:40px 0 10px; }
+.sig-block { border-bottom:1.5px solid #C8D8E4; padding-bottom:6px; }
+.sig-label { font-size:10px; color:var(--gray); margin-top:6px; font-family:'JetBrains Mono',monospace; }
+
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.confirm-card { border:2px solid var(--teal); border-radius:12px; padding:24px; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="cover">
+  <div class="tag-top">// proposta comercial · 001</div>
+  <h1>Expert Racing<br>Parts.</h1>
+  <p class="subtitle">Bot ML + Site E-commerce + Bling ERP</p>
+  <div class="cover-grid">
+    <div class="cover-item">
+      <div class="label">// cliente</div>
+      <div class="val">Expert Racing Parts</div>
+    </div>
+    <div class="cover-item">
+      <div class="label">// conta ml</div>
+      <div class="val">Expert.Store</div>
+    </div>
+    <div class="cover-item">
+      <div class="label">// produtos cadastrados</div>
+      <div class="val">881 produtos</div>
+    </div>
+    <div class="cover-item">
+      <div class="label">// data · validade</div>
+      <div class="val">18.06.2026 · 30 dias</div>
+    </div>
+  </div>
+  <div class="cover-badge">✓ API ML confirmada · POST /answers</div>
+</div>
+
+
+<!-- 01 · API ML -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div>
+      <h2>API do Mercado Livre —<br>respostas automáticas.</h2>
+      <p>Confirmação técnica antes de falar de preço.</p>
+    </div>
+  </div>
+
+  <div class="box box-teal">
+    <h3>// veredicto</h3>
+    <p style="font-size:14px;font-weight:700;color:var(--teal)">A API permite responder perguntas automaticamente via <code>POST /answers</code>.</p>
+    <p style="margin-top:6px">Pesquisa realizada diretamente na documentação oficial <span class="tag">developers.mercadolivre.com.br</span>. O endpoint existe, está ativo e é usado por milhares de integrações no Brasil.</p>
+  </div>
+
+  <h3>// endpoint · responder pergunta</h3>
+<pre>POST https://api.mercadolibre.com/answers
+
+// Headers
+Authorization: Bearer {ACCESS_TOKEN}
+Content-Type: application/json
+
+// Body
+{
+  "question_id": 3957150025,
+  "text": "Olá! Este produto é bivolt (110V/220V). Temos em estoque..."
+}
+
+// Resposta 200 OK
+{ "id": 987654321, "status": "ACTIVE", "date_created": "2026-06-18T10:30:00..." }</pre>
+
+  <h3>// como o bot recebe perguntas em tempo real</h3>
+  <div class="flow">
+    <div class="flow-step"><div class="fn">1</div><div class="ft">Comprador faz pergunta no anúncio → ML dispara webhook imediato para o servidor do bot</div></div>
+    <div class="flow-step"><div class="fn">2</div><div class="ft">Payload recebido: <code>{ "resource": "/questions/5036111111", "topic": "questions" }</code></div></div>
+    <div class="flow-step"><div class="fn">3</div><div class="ft">Bot faz <code>GET /questions/{id}</code> para buscar o texto completo + dados do produto</div></div>
+    <div class="flow-step"><div class="fn">4</div><div class="ft">IA (Groq Llama 3.3 70B) gera resposta contextualizada com histórico e descrição do produto</div></div>
+    <div class="flow-step"><div class="fn">5</div><div class="ft">Bot posta via <code>POST /answers</code> → comprador recebe em menos de 2 segundos</div></div>
+  </div>
+
+  <div class="box box-coral" style="margin-top:16px">
+    <p><strong style="color:var(--coral)">Ponto de atenção:</strong> O ML recomenda fluxo semiautomático (bot sugere → humano aprova). Respostas detectadas como template fixo podem ser moderadas. A solução: usar IA com contexto real de cada produto — cada resposta fica única, natural e passa pelo filtro.</p>
+  </div>
+
+  <h3>// outros endpoints utilizados</h3>
+  <table>
+    <tr><th>Endpoint</th><th>Método</th><th>Uso</th></tr>
+    <tr><td><code>/answers</code></td><td>POST</td><td class="td-teal">Postar resposta automática — core do bot</td></tr>
+    <tr><td><code>/questions/{id}</code></td><td>GET</td><td>Buscar texto da pergunta após webhook</td></tr>
+    <tr><td><code>/questions/search?item_id=X</code></td><td>GET</td><td>Listar perguntas pendentes por produto</td></tr>
+    <tr><td><code>/items/{id}</code></td><td>GET</td><td>Dados do produto para contexto da IA</td></tr>
+    <tr><td><code>/oauth/token</code></td><td>POST</td><td>Renovar access token a cada 6h (automático)</td></tr>
+  </table>
+</div>
+
+<div class="page-break"></div>
+
+
+<!-- 02 · ESCOPO -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div>
+      <h2>O que vamos<br>entregar.</h2>
+      <p>Seis entregáveis. Zero dependência de plataformas caras.</p>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>#</th><th>Entregável</th><th>O que é</th></tr>
+    <tr>
+      <td><span class="tag">01</span></td>
+      <td class="td-bold">Bot de Respostas ML</td>
+      <td>Webhook receiver + IA Groq + RAG com histórico. Responde perguntas dos anúncios em &lt;2s, 24h/dia.</td>
+    </tr>
+    <tr>
+      <td><span class="tag">02</span></td>
+      <td class="td-bold">Site Vitrine</td>
+      <td>Catálogo sincronizado com Bling. 881+ produtos com botão "Comprar no Mercado Livre". Busca, filtros, responsivo.</td>
+    </tr>
+    <tr>
+      <td><span class="tag">03</span></td>
+      <td class="td-bold">Sincronização Bling</td>
+      <td>Job automático a cada 1h. Produtos, preços e estoque sempre atualizados sem intervenção manual.</td>
+    </tr>
+    <tr>
+      <td><span class="tag">04</span></td>
+      <td class="td-bold">Base de Conhecimento (RAG)</td>
+      <td>Memória vetorial que aprende com cada resposta. Bot fica mais preciso a cada semana.</td>
+    </tr>
+    <tr>
+      <td><span class="tag">05</span></td>
+      <td class="td-bold">Painel Admin</td>
+      <td>Histórico de Q&amp;As, editar tom de voz, aprovar respostas, analytics.</td>
+    </tr>
+    <tr>
+      <td><span class="tag">06</span></td>
+      <td class="td-bold">Deploy + Infraestrutura</td>
+      <td>Setup completo do servidor, SSL, domínio, PM2. Sistema no ar desde o dia 1.</td>
+    </tr>
+  </table>
+</div>
+
+
+<!-- 03 · ARQUITETURA -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div>
+      <h2>Stack técnico.<br>Zero custo de IA.</h2>
+      <p>Groq e Gemini têm tier gratuito mais que suficiente para o volume da Expert Racing.</p>
+    </div>
+  </div>
+
+<pre>// SERVIDOR (VPS Hostinger ~R$60/mes OU servidor proprio do cliente)
+
++---------------------------------------------------------+
+|  NEXT.JS 15  (Site + Painel Admin + API Routes)         |
+|                                                         |
+|  /produtos    -> Vitrine catalogo                       |
+|  /admin       -> Painel de controle                     |
+|  /api/webhook -> Recebe perguntas ML em tempo real      |
++------------------------+--------------------------------+
+                         |
++------------------------v--------------------------------+
+|  POSTGRESQL 15 + pgvector  (banco local no servidor)   |
+|  * 881 produtos sincronizados do Bling                  |
+|  * Historico de Q&As com embeddings vetoriais (RAG)     |
+|  * Tokens OAuth do Mercado Livre                        |
++---------+-------------------+-----------+--------------+
+          |                   |           |
+    +-----v-----+    +--------v-----+  +--v-------+
+    |  BLING    |    |  ML API      |  |  GROQ    |
+    |  API v3   |    |  Perguntas   |  |  API     |
+    |  Produtos |    |  Respostas   |  | Llama 3  |
+    |  Estoque  |    |  Webhooks    |  | GRATIS   |
+    +-----------+    +--------------+  +----------+</pre>
+
+  <h3>// custo de cada ferramenta</h3>
+  <table>
+    <tr><th>Ferramenta</th><th>Custo</th><th>Capacidade</th></tr>
+    <tr><td>Next.js 15 + TypeScript</td><td class="td-green">Grátis</td><td>Open source</td></tr>
+    <tr><td>PostgreSQL + pgvector</td><td class="td-green">Grátis</td><td>Open source</td></tr>
+    <tr><td>Groq API (Llama 3.3 70B)</td><td class="td-green">Grátis</td><td>14.400 req/dia</td></tr>
+    <tr><td>Gemini text-embedding-004</td><td class="td-green">Grátis</td><td>1.500 req/min</td></tr>
+    <tr><td>Mercado Livre API</td><td class="td-green">Grátis</td><td>Webhooks + REST</td></tr>
+    <tr><td>Bling API</td><td class="td-green">Grátis</td><td>Incluso no plano Bling atual</td></tr>
+    <tr><td>Let's Encrypt (SSL)</td><td class="td-green">Grátis</td><td>Auto-renovável</td></tr>
+    <tr><td style="border-top:2px solid var(--teal)"><strong>Hostinger VPS (único custo de infra)</strong></td><td style="border-top:2px solid var(--teal)" class="td-teal td-bold">~R$60/mês</td><td style="border-top:2px solid var(--teal)">2 vCPU · 4 GB RAM · 60 GB SSD</td></tr>
+  </table>
+</div>
+
+<div class="page-break"></div>
+
+
+<!-- 04 · VALORES -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div>
+      <h2>Investimento.</h2>
+      <p>Sem mensalidade de plataforma. Sem taxa por resposta. Sem surpresa.</p>
+    </div>
+  </div>
+
+  <div class="price-row">
+    <div class="price-card">
+      <div class="pc-label">// bot ml automático</div>
+      <div class="pc-value">R$4.000</div>
+      <div class="pc-period">pagamento único</div>
+      <div class="pc-desc">Webhook · ML API · Groq IA · RAG · Painel admin · Deploy · 15 dias de ajustes</div>
+    </div>
+    <div class="price-card featured">
+      <div class="pc-label">// site vitrine</div>
+      <div class="pc-value">R$1.000</div>
+      <div class="pc-period">pagamento único</div>
+      <div class="pc-desc">Catálogo Bling · 881+ produtos · Botão ML · Busca e filtros · Responsivo</div>
+    </div>
+    <div class="price-card">
+      <div class="pc-label">// suporte mensal</div>
+      <div class="pc-value">R$400</div>
+      <div class="pc-period">por mês · após entrega</div>
+      <div class="pc-desc">Monitoramento · Ajuste de prompt · Melhorias · Atendimento WhatsApp</div>
+    </div>
+  </div>
+
+  <div class="total-banner">
+    <div>
+      <div class="tl-tag">// investimento total de produção</div>
+      <div class="tl-val">R$5.000</div>
+      <div class="tl-sub">R$4.000 (bot) + R$1.000 (site) — pagamento único</div>
+    </div>
+    <div class="tl-right">
+      <div style="color:rgba(255,255,255,0.6);font-size:12px">Custo de infra (por conta do cliente)</div>
+      <div class="mini">~R$60/mês (VPS) + R$400/mês (suporte)</div>
+      <div class="mini" style="margin-top:8px;color:var(--coral);font-weight:600">Zero custo de IA. Forever.</div>
+    </div>
+  </div>
+
+  <h3>// o que está incluso em cada item</h3>
+  <table>
+    <tr><th>Item</th><th>Inclui</th></tr>
+    <tr>
+      <td><strong>Bot ML — R$4.000</strong></td>
+      <td>Webhook receiver + validação · Integração ML API · OAuth 2.0 automático · IA Groq · RAG (memória que aprende) · Painel admin · Deploy · 15 dias de testes</td>
+    </tr>
+    <tr>
+      <td><strong>Site Vitrine — R$1.000</strong></td>
+      <td>Catálogo sincronizado com Bling · Página de detalhe com specs, preço e estoque · Botão "Comprar no ML" · Busca e filtros · Responsivo</td>
+    </tr>
+    <tr>
+      <td><strong>Suporte — R$400/mês</strong></td>
+      <td>Monitoramento · Ajuste de prompt e tom de voz · Atualizações de segurança · Suporte WhatsApp · 1 melhoria por mês</td>
+    </tr>
+  </table>
+</div>
+
+
+<!-- 05 · SERVIDOR -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div>
+      <h2>Onde roda.<br>Servidor.</h2>
+      <p>Duas opções — cliente escolhe.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="box box-teal">
+      <h3>// opção A · recomendado</h3>
+      <p style="font-size:15px;font-weight:800;color:var(--teal)">VPS Hostinger</p>
+      <p>A gente cria e gerencia um VPS dedicado. Ubuntu 22.04, 2 vCPU, 4 GB RAM, 60 GB SSD. Domínio, SSL, PM2, backups.</p>
+      <p style="margin-top:10px;font-weight:700;color:var(--teal)">~R$60/mês (conta do cliente)</p>
+    </div>
+    <div class="box box-cream">
+      <h3>// opção B</h3>
+      <p style="font-size:15px;font-weight:800;color:var(--navy)">Servidor próprio</p>
+      <p>Se o cliente já tem servidor, a gente instala e configura tudo lá. Requisito: Ubuntu 20.04+, 2 GB RAM, Node.js 20.</p>
+      <p style="margin-top:10px;font-weight:700;color:var(--navy)">R$0 extra (já pago pelo cliente)</p>
+    </div>
+  </div>
+
+  <div class="box box-coral">
+    <p><strong style="color:var(--coral)">Importante:</strong> em qualquer opção, <strong>todo código e dados ficam no servidor do cliente</strong>. Sem lock-in de plataforma, sem reajuste surpresa de terceiros.</p>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+
+<!-- 06 · PAGAMENTO -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div>
+      <h2>Condições de<br>pagamento.</h2>
+      <p>50% para começar. 50% quando estiver funcionando.</p>
+    </div>
+  </div>
+
+  <div class="payment-cards">
+    <div class="pay-card pay-card-1">
+      <div class="step">// parcela 01</div>
+      <div class="amount">R$2.500</div>
+      <p style="margin-top:6px;font-weight:700;color:var(--teal)">Na assinatura do contrato</p>
+      <div class="condition">Pagamento liberado antes do início do desenvolvimento.<br>PIX, TED ou boleto.</div>
+    </div>
+    <div class="pay-card pay-card-2">
+      <div class="step">// parcela 02</div>
+      <div class="amount">R$2.500</div>
+      <p style="margin-top:6px;font-weight:700;color:#1A7A4A">Na entrega final</p>
+      <div class="condition">Após aprovação nos 15 dias de testes. Sistema em produção funcionando.<br>PIX, TED ou boleto.</div>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>Etapa</th><th>Evento</th><th>Valor</th></tr>
+    <tr><td>Parcela 1</td><td>Assinatura do contrato</td><td class="td-teal td-bold">R$2.500</td></tr>
+    <tr><td>Parcela 2</td><td>Entrega + aprovação após 15 dias de testes</td><td class="td-green td-bold">R$2.500</td></tr>
+    <tr><td>Suporte</td><td>Mês seguinte à entrega (recorrente)</td><td class="td-bold">R$400/mês</td></tr>
+  </table>
+</div>
+
+
+<!-- 07 · CRONOGRAMA -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div>
+      <h2>90 dias + 15 de teste.<br>Entrega em até 105 dias.</h2>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>Fase</th><th>Período</th><th>O que sai</th></tr>
+    <tr>
+      <td><strong>Fase 1 · MVP</strong></td>
+      <td><span class="tag">dias 1–30</span></td>
+      <td>Setup do servidor · ML OAuth · Bot respondendo ao vivo · Sync dos 881 produtos · Site vitrine mínimo</td>
+    </tr>
+    <tr>
+      <td><strong>Fase 2 · RAG</strong></td>
+      <td><span class="tag">dias 31–60</span></td>
+      <td>Memória vetorial (pgvector + Gemini) · Bot aprende com cada resposta · Respostas progressivamente melhores</td>
+    </tr>
+    <tr>
+      <td><strong>Fase 3 · Polish</strong></td>
+      <td><span class="tag">dias 61–90</span></td>
+      <td>Painel admin completo · Site com filtros · Retry queue · Logs · Testes de carga</td>
+    </tr>
+    <tr style="background:var(--light)">
+      <td><strong>Testes</strong></td>
+      <td><span class="tag">dias 91–105</span></td>
+      <td>15 dias de uso real com acompanhamento · Ajustes finos · Aprovação final</td>
+    </tr>
+  </table>
+
+  <h3>// linha do tempo</h3>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-text"><strong>Dia 1</strong> — Assinatura + 1ª parcela (R$2.500). Início imediato.</div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-text"><strong>Dia 30</strong> — Bot ao vivo respondendo perguntas no ML + Site funcionando.</div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-text"><strong>Dia 60</strong> — RAG ativo. Bot aprendendo com o histórico da conta.</div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-text"><strong>Dia 90</strong> — Sistema completo entregue para testes.</div></div>
+  <div class="tl-item"><div class="tl-dot end"></div><div class="tl-text"><strong>Dia 105</strong> — Entrega oficial + 2ª parcela (R$2.500) + início do suporte mensal.</div></div>
+</div>
+
+<div class="page-break"></div>
+
+
+<!-- 08 · RESUMO -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <div>
+      <h2>Resumo.<br>Tudo em uma tela.</h2>
+    </div>
+  </div>
+
+  <table>
+    <tr><th colspan="2" style="background:var(--teal);text-align:center">// PROPOSTA · EXPERT RACING PARTS · noria.solutions</th></tr>
+    <tr><td><strong>Desenvolvimento Bot ML</strong></td><td class="td-teal td-bold">R$4.000 (único)</td></tr>
+    <tr><td><strong>Desenvolvimento Site Vitrine</strong></td><td class="td-teal td-bold">R$1.000 (único)</td></tr>
+    <tr style="background:var(--light)"><td><strong>TOTAL DE PRODUÇÃO</strong></td><td style="font-size:16px" class="td-teal td-bold">R$5.000</td></tr>
+    <tr><td><strong>Suporte Mensal</strong></td><td class="td-bold">R$400/mês (após entrega)</td></tr>
+    <tr><td><strong>Pagamento</strong></td><td>50% (R$2.500) no contrato + 50% (R$2.500) na entrega</td></tr>
+    <tr><td><strong>Prazo</strong></td><td>90 dias desenvolvimento + 15 dias de testes</td></tr>
+    <tr><td><strong>Servidor</strong></td><td>VPS Hostinger ~R$60/mês ou servidor próprio do cliente</td></tr>
+    <tr><td><strong>API ML respostas automáticas</strong></td><td class="td-green">✓ Confirmada — <code>POST /answers</code></td></tr>
+    <tr><td><strong>Custo de IA (Groq)</strong></td><td class="td-green">Grátis · 14.400 req/dia</td></tr>
+    <tr><td><strong>Validade da proposta</strong></td><td>30 dias · até 18.07.2026</td></tr>
+  </table>
+</div>
+
+
+<!-- 09 · ACEITE -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <div>
+      <h2>Aceite.</h2>
+      <p>Assinado aqui, a gente começa na semana.</p>
+    </div>
+  </div>
+
+  <div class="confirm-card">
+    <h3>// dados para formalização</h3>
+    <table style="margin:12px 0;font-size:12px">
+      <tr><td style="width:30%;color:var(--gray);border:none;padding:6px 0">Prestador</td><td style="border:none;padding:6px 0">Noria.Solutions</td></tr>
+      <tr><td style="color:var(--gray);border:none;padding:6px 0">CNPJ</td><td style="border:none;padding:6px 0"></td></tr>
+      <tr><td style="color:var(--gray);border:none;padding:6px 0">Responsável</td><td style="border:none;padding:6px 0"></td></tr>
+      <tr><td style="color:var(--gray);border:none;padding:6px 0">Chave PIX</td><td style="border:none;padding:6px 0"></td></tr>
+    </table>
+
+    <div class="sig-grid">
+      <div>
+        <div class="sig-block"></div>
+        <div class="sig-label">// contratante · Expert Racing Parts</div>
+        <div class="sig-label" style="margin-top:4px">data: ___/___/______</div>
+      </div>
+      <div>
+        <div class="sig-block"></div>
+        <div class="sig-label">// contratado · noria.solutions</div>
+        <div class="sig-label" style="margin-top:4px">data: ___/___/______</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="logo">&lt;N&gt; noria.solutions</div>
+  <div>Levantamento técnico realizado em 18.06.2026 · API ML confirmada na documentação oficial</div>
+  <div class="mono" style="color:var(--teal)">v1.0 · 2026</div>
+</div>
+
+</body>
+</html>

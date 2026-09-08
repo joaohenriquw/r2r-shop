@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Estrutura do Projeto - Expert Racing Parts</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Segoe UI', sans-serif; background:#fff; color:#1a202c; padding:32px; max-width:900px; margin:0 auto; font-size:13px; }
+
+h1 { font-size:26px; color:#1a365d; text-align:center; margin-bottom:6px; }
+h2 { font-size:16px; color:#2d3748; margin:24px 0 10px; border-left:4px solid #3182ce; padding-left:10px; }
+h3 { font-size:12px; color:#4a5568; margin:12px 0 6px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; }
+.subtitle { text-align:center; color:#718096; font-size:13px; margin-bottom:28px; }
+
+/* COVER */
+.cover { text-align:center; padding:60px 0 80px; }
+.cover h1 { font-size:30px; }
+.cover .badge { display:inline-block; background:#ebf8ff; color:#2b6cb0; border:1px solid #bee3f8; border-radius:20px; padding:4px 14px; font-size:11px; margin:8px 4px; }
+.cover .info { margin-top:40px; color:#718096; font-size:11px; }
+
+.page-break { page-break-after:always; margin:40px 0; border-top:1px dashed #e2e8f0; }
+
+/* DISCOVERY BOX */
+.discovery { background:#f0fff4; border:1.5px solid #68d391; border-radius:8px; padding:14px 18px; margin:12px 0; }
+.discovery h4 { color:#276749; font-size:12px; margin-bottom:8px; }
+.discovery ul { list-style:none; }
+.discovery li { padding:3px 0; font-size:12px; color:#2d3748; }
+.discovery li::before { content:"✅ "; }
+
+.warning { background:#fffaf0; border:1.5px solid #f6ad55; border-radius:8px; padding:14px 18px; margin:12px 0; }
+.warning h4 { color:#c05621; font-size:12px; margin-bottom:8px; }
+.warning li::before { content:"⚠️ "; }
+.warning ul { list-style:none; }
+.warning li { padding:3px 0; font-size:12px; }
+
+/* TABLE */
+table { width:100%; border-collapse:collapse; margin:12px 0; font-size:11.5px; }
+th { background:#2d3748; color:#fff; padding:8px 10px; text-align:left; font-size:11px; }
+td { padding:8px 10px; border-bottom:1px solid #e2e8f0; vertical-align:top; }
+tr:nth-child(even) td { background:#f7fafc; }
+.green { color:#276749; font-weight:700; }
+.red { color:#c53030; }
+.blue { color:#2b6cb0; font-weight:700; }
+
+/* CODE */
+pre { background:#1a202c; color:#e2e8f0; border-radius:8px; padding:14px 16px; font-family:'Courier New',monospace; font-size:10.5px; line-height:1.6; margin:10px 0; overflow-x:auto; white-space:pre-wrap; }
+code { background:#edf2f7; color:#c53030; padding:1px 5px; border-radius:3px; font-size:11px; }
+
+/* FOLDER TREE */
+.tree { background:#0f172a; color:#e2e8f0; border-radius:8px; padding:16px 18px; font-family:'Courier New',monospace; font-size:10.5px; line-height:1.8; margin:10px 0; }
+.tree .dir { color:#60a5fa; font-weight:700; }
+.tree .file { color:#a3e635; }
+.tree .comment { color:#64748b; }
+
+/* FLOW */
+.flow { margin:12px 0; }
+.flow-step { display:flex; gap:12px; align-items:flex-start; margin:6px 0; padding:8px 12px; background:#f7fafc; border-radius:6px; border-left:3px solid #3182ce; }
+.flow-step .num { background:#3182ce; color:#fff; border-radius:50%; width:20px; height:20px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; flex-shrink:0; margin-top:1px; }
+.flow-step .txt { font-size:12px; color:#2d3748; line-height:1.5; }
+.flow-step .txt strong { color:#1a202c; }
+
+/* PHASE */
+.phase { border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; margin:10px 0; }
+.phase-header { padding:10px 14px; font-weight:700; font-size:12px; display:flex; justify-content:space-between; }
+.phase-body { padding:10px 14px; background:#fff; }
+.phase-body li { font-size:11.5px; margin:4px 0; list-style:none; }
+.phase-body li::before { content:"→ "; color:#718096; }
+.ph1 .phase-header { background:#ebf8ff; color:#2b6cb0; }
+.ph2 .phase-header { background:#f0fff4; color:#276749; }
+.ph3 .phase-header { background:#fffaf0; color:#c05621; }
+.ph4 .phase-header { background:#faf5ff; color:#553c9a; }
+
+.highlight-box { background:#fffde7; border:2px solid #f6c90e; border-radius:8px; padding:14px 18px; margin:16px 0; font-size:12px; }
+.highlight-box strong { color:#744210; }
+
+.cost-total { background:#f0fff4; border:2px solid #38a169; border-radius:8px; padding:14px 18px; margin:12px 0; text-align:center; }
+.cost-total .value { font-size:28px; font-weight:700; color:#276749; }
+.cost-total .label { font-size:11px; color:#718096; }
+
+.tag { display:inline-block; font-size:9px; padding:1px 6px; border-radius:10px; font-weight:700; margin-left:4px; vertical-align:middle; }
+.tag-free { background:#c6f6d5; color:#276749; }
+.tag-paid { background:#fed7d7; color:#c53030; }
+.tag-new { background:#bee3f8; color:#2b6cb0; }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="cover">
+  <h1>🏎️ Expert Racing Parts</h1>
+  <p class="subtitle">Estrutura Completa do Projeto</p>
+  <div>
+    <span class="badge">Bot ML Automático</span>
+    <span class="badge">Site Vitrine</span>
+    <span class="badge">Integração Bling</span>
+    <span class="badge">Opção B — Next.js</span>
+  </div>
+  <div style="margin-top:30px">
+    <table style="max-width:400px;margin:0 auto;font-size:12px;">
+      <tr><td style="color:#718096;padding:4px 12px">Cliente</td><td style="font-weight:700">Expert Racing Parts</td></tr>
+      <tr><td style="color:#718096;padding:4px 12px">Conta Bling</td><td>integracao@expertracingparts.com.br</td></tr>
+      <tr><td style="color:#718096;padding:4px 12px">Conta ML</td><td>Expert.Store</td></tr>
+      <tr><td style="color:#718096;padding:4px 12px">Produtos</td><td><strong>881 produtos</strong> (peças de corrida)</td></tr>
+      <tr><td style="color:#718096;padding:4px 12px">Data</td><td>18 de junho de 2026</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- DIAGNÓSTICO -->
+<h2>1. Diagnóstico da Conta</h2>
+
+<div class="discovery">
+  <h4>✅ O QUE JÁ EXISTE (levantado via acesso ao Bling)</h4>
+  <ul>
+    <li>881 produtos cadastrados no Bling com SKU, preço e estoque</li>
+    <li>Tray Commerce já integrado e sincronizado com o Bling</li>
+    <li>Amazon já integrado ao Bling</li>
+    <li>IDERIS e Olist (hubs de marketplaces) já integrados</li>
+    <li>EXPERT.STORE canal próprio já conectado</li>
+    <li>Nicho definido: peças de alta performance (blocos de motor, filtros, suportes)</li>
+  </ul>
+</div>
+
+<div class="warning">
+  <h4>⚠️ O QUE PRECISA SER CRIADO / RESOLVIDO</h4>
+  <ul style="list-style:none">
+    <li style="padding:3px 0">Sem acesso ao código Tray → não dá para customizar redirect para ML</li>
+    <li style="padding:3px 0">Tray cobra mensalidade para um checkout que o cliente não vai usar</li>
+    <li style="padding:3px 0">Bot ML ainda não existe</li>
+    <li style="padding:3px 0">Site vitrine com redirect para ML ainda não existe</li>
+    <li style="padding:3px 0">VPS Hostinger ainda não criado</li>
+  </ul>
+</div>
+
+<h3>Por que Opção B (Next.js) e não Opção A (Tray)</h3>
+<table>
+  <tr><th>Critério</th><th>Tray (Opção A)</th><th>Next.js (Opção B)</th></tr>
+  <tr><td>Acesso ao código</td><td class="red">Sem acesso (SaaS)</td><td class="green">100% controle</td></tr>
+  <tr><td>Redirect para ML</td><td class="red">Difícil / impossível sem código</td><td class="green">Nativo, 5 min</td></tr>
+  <tr><td>Custo mensal</td><td class="red">R$200–500/mês</td><td class="green">R$60/mês</td></tr>
+  <tr><td>Integração Bling</td><td>Já existe (mas limitada)</td><td class="green">Nativa via API</td></tr>
+  <tr><td>Bot integrado</td><td class="red">Precisaria de sistema separado</td><td class="green">No mesmo servidor</td></tr>
+  <tr><td>Checkout</td><td class="red">Forçado para Tray</td><td class="green">Redireciona direto para ML</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<!-- ARQUITETURA GERAL -->
+<h2>2. Arquitetura Geral do Sistema</h2>
+
+<pre>
+                    ┌─────────────────────────────────────────┐
+                    │         HOSTINGER VPS (~R$60/mês)        │
+                    │                                         │
+                    │  ┌──────────────────────────────────┐   │
+                    │  │     NEXT.JS APP (porta 3000)      │   │
+                    │  │                                  │   │
+                    │  │  /                  → Homepage   │   │
+                    │  │  /produtos          → Catálogo   │   │
+                    │  │  /produtos/[slug]   → Detalhe    │   │
+                    │  │  /admin             → Painel     │   │
+                    │  │  /api/webhook/ml    → Bot        │   │
+                    │  │  /api/sync/bling    → Sync job   │   │
+                    │  └──────────────────────────────────┘   │
+                    │                 ↕                        │
+                    │  ┌──────────────────────────────────┐   │
+                    │  │   POSTGRESQL + pgvector          │   │
+                    │  │   (banco local no mesmo VPS)     │   │
+                    │  └──────────────────────────────────┘   │
+                    └─────────────────────────────────────────┘
+                         ↕                ↕               ↕
+                    ┌────────┐      ┌──────────┐    ┌──────────┐
+                    │ BLING  │      │    ML    │    │  GROQ    │
+                    │  API   │      │   API    │    │  API     │
+                    │(sync)  │      │(bot+OAuth│    │ (IA grátis│
+                    └────────┘      └──────────┘    └──────────┘
+</pre>
+
+<h3>Componentes e responsabilidades</h3>
+<table>
+  <tr><th>Componente</th><th>Função</th><th>Tecnologia</th></tr>
+  <tr><td><strong>Site Vitrine</strong></td><td>Exibir catálogo, redirecionar para ML</td><td>Next.js 15</td></tr>
+  <tr><td><strong>Bot ML</strong></td><td>Receber webhook, gerar resposta com IA, postar</td><td>Node.js + Fastify</td></tr>
+  <tr><td><strong>Sync Bling</strong></td><td>Sincronizar produtos e estoque do Bling</td><td>Cron job (a cada 1h)</td></tr>
+  <tr><td><strong>Painel Admin</strong></td><td>Config bot, histórico, conectar ML</td><td>Next.js App Router</td></tr>
+  <tr><td><strong>Banco de Dados</strong></td><td>Catálogo, histórico Q&A, tokens ML</td><td>PostgreSQL + pgvector</td></tr>
+  <tr><td><strong>IA</strong></td><td>Gerar respostas contextualizadas</td><td>Groq (Llama 3.3 70B) <span class="tag tag-free">GRÁTIS</span></td></tr>
+  <tr><td><strong>Embeddings (RAG)</strong></td><td>Busca semântica em histórico Q&A</td><td>Gemini text-embedding <span class="tag tag-free">GRÁTIS</span></td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<!-- ESTRUTURA DE PASTAS -->
+<h2>3. Estrutura de Pastas do Projeto</h2>
+
+<div class="tree">
+<span class="dir">ml-bot/</span>
+├── <span class="dir">src/</span>
+│   ├── <span class="dir">app/</span>                          <span class="comment"># Next.js App Router</span>
+│   │   ├── <span class="dir">page.tsx</span>                  <span class="comment"># Homepage</span>
+│   │   ├── <span class="dir">produtos/</span>
+│   │   │   ├── <span class="file">page.tsx</span>              <span class="comment"># Catálogo de produtos</span>
+│   │   │   └── <span class="dir">[slug]/</span>
+│   │   │       └── <span class="file">page.tsx</span>          <span class="comment"># Detalhes + botão "Comprar no ML"</span>
+│   │   ├── <span class="dir">admin/</span>
+│   │   │   ├── <span class="file">page.tsx</span>              <span class="comment"># Dashboard admin</span>
+│   │   │   ├── <span class="dir">historico/page.tsx</span>    <span class="comment"># Histórico de Q&As</span>
+│   │   │   ├── <span class="dir">configuracoes/page.tsx</span><span class="comment"># Prompt do bot + config</span>
+│   │   │   └── <span class="dir">conectar/page.tsx</span>     <span class="comment"># OAuth ML</span>
+│   │   └── <span class="dir">api/</span>
+│   │       ├── <span class="dir">webhook/</span>
+│   │       │   └── <span class="file">questions/route.ts</span>  <span class="comment"># Recebe webhook do ML</span>
+│   │       ├── <span class="dir">sync/</span>
+│   │       │   └── <span class="file">bling/route.ts</span>      <span class="comment"># Trigger de sincronização</span>
+│   │       └── <span class="dir">auth/</span>
+│   │           └── <span class="file">callback/route.ts</span>   <span class="comment"># Callback OAuth ML</span>
+│   │
+│   ├── <span class="dir">services/</span>                     <span class="comment"># Lógica de negócio</span>
+│   │   ├── <span class="file">ml-api.ts</span>                 <span class="comment"># Client ML API (perguntas, respostas)</span>
+│   │   ├── <span class="file">bling-api.ts</span>              <span class="comment"># Client Bling API (produtos, estoque)</span>
+│   │   ├── <span class="file">groq.ts</span>                   <span class="comment"># Client Groq (gera resposta IA)</span>
+│   │   ├── <span class="file">gemini.ts</span>                 <span class="comment"># Client Gemini (embeddings RAG)</span>
+│   │   ├── <span class="file">rag.ts</span>                    <span class="comment"># Busca semântica no histórico</span>
+│   │   ├── <span class="file">bot.ts</span>                    <span class="comment"># Orquestrador: recebe → processa → responde</span>
+│   │   └── <span class="file">sync.ts</span>                   <span class="comment"># Sincroniza Bling → banco</span>
+│   │
+│   ├── <span class="dir">db/</span>                           <span class="comment"># Banco de dados</span>
+│   │   ├── <span class="file">schema.sql</span>                <span class="comment"># DDL das tabelas</span>
+│   │   ├── <span class="file">client.ts</span>                 <span class="comment"># Pool de conexão PostgreSQL</span>
+│   │   └── <span class="file">queries.ts</span>                <span class="comment"># Queries reutilizáveis</span>
+│   │
+│   └── <span class="dir">lib/</span>                          <span class="comment"># Utilitários</span>
+│       ├── <span class="file">auth.ts</span>                   <span class="comment"># OAuth helpers</span>
+│       ├── <span class="file">crypto.ts</span>                 <span class="comment"># Encrypt/decrypt tokens</span>
+│       └── <span class="file">logger.ts</span>                 <span class="comment"># Logs estruturados</span>
+│
+├── <span class="file">.env.example</span>                      <span class="comment"># Variáveis de ambiente (template)</span>
+├── <span class="file">.env</span>                              <span class="comment"># NUNCA versionar no Git</span>
+├── <span class="file">docker-compose.yml</span>                <span class="comment"># PostgreSQL local para dev</span>
+├── <span class="file">package.json</span>
+└── <span class="file">README.md</span>
+</div>
+
+<div class="page-break"></div>
+
+<!-- BANCO DE DADOS -->
+<h2>4. Banco de Dados (PostgreSQL)</h2>
+
+<h3>5 tabelas principais</h3>
+
+<pre>
+-- Produtos sincronizados do Bling
+CREATE TABLE products (
+  id              TEXT PRIMARY KEY,        -- ml_item_id do ML
+  sku             TEXT,                    -- SKU do Bling (ex: EXP3001300001-USA)
+  bling_id        TEXT,                    -- ID interno do Bling
+  title           TEXT NOT NULL,
+  description     TEXT,
+  price           DECIMAL(10,2),
+  cost            DECIMAL(10,2),
+  category        TEXT,
+  image_url       TEXT,
+  ml_item_url     TEXT,                    -- URL do anúncio no ML
+  custom_instructions TEXT,               -- Instruções específicas do bot para este produto
+  sync_status     TEXT DEFAULT 'pending', -- pending | synced | error
+  last_synced_at  TIMESTAMP,
+  created_at      TIMESTAMP DEFAULT NOW()
+);
+
+-- Estoque (separado para atualizar sem recriar produto)
+CREATE TABLE inventory (
+  product_id    TEXT PRIMARY KEY REFERENCES products(id),
+  quantity      INT DEFAULT 0,
+  reserved      INT DEFAULT 0,            -- vendidos aguardando entrega
+  last_updated  TIMESTAMP DEFAULT NOW()
+);
+
+-- Histórico de perguntas e respostas (base do RAG)
+CREATE TABLE qa_history (
+  id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  product_id      TEXT REFERENCES products(id),
+  ml_question_id  TEXT UNIQUE,
+  question        TEXT NOT NULL,
+  answer          TEXT NOT NULL,
+  embedding       vector(768),            -- embedding da pergunta para RAG
+  status          TEXT DEFAULT 'success', -- success | failed | edited
+  answered_at     TIMESTAMP DEFAULT NOW()
+);
+CREATE INDEX ON qa_history USING ivfflat (embedding vector_cosine_ops);
+
+-- Credenciais ML (token OAuth, renovado automaticamente)
+CREATE TABLE ml_credentials (
+  id            SERIAL PRIMARY KEY,
+  seller_id     TEXT NOT NULL UNIQUE,
+  access_token  TEXT NOT NULL,            -- armazenado criptografado
+  refresh_token TEXT NOT NULL,
+  expires_at    TIMESTAMP NOT NULL,
+  updated_at    TIMESTAMP DEFAULT NOW()
+);
+
+-- Log de webhooks recebidos (debug e auditoria)
+CREATE TABLE webhook_logs (
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  question_id   TEXT,
+  seller_id     TEXT,
+  status        TEXT,                     -- received | processing | success | failed
+  error         TEXT,
+  attempts      INT DEFAULT 1,
+  created_at    TIMESTAMP DEFAULT NOW()
+);
+</pre>
+
+<div class="page-break"></div>
+
+<!-- FLUXO DO BOT -->
+<h2>5. Fluxo Completo — Bot de Respostas</h2>
+
+<div class="flow">
+  <div class="flow-step"><div class="num">1</div><div class="txt"><strong>Comprador pergunta</strong> no anúncio da Expert Racing Parts no ML</div></div>
+  <div class="flow-step"><div class="num">2</div><div class="txt"><strong>ML dispara webhook</strong> para o servidor: <code>POST /api/webhook/questions</code><br>Payload: <code>{ "question_id": "q12345", "item_id": "MLB999", "seller_id": "..." }</code></div></div>
+  <div class="flow-step"><div class="num">3</div><div class="txt"><strong>Bot valida o webhook</strong> (HMAC-SHA256) — garante que é realmente do ML, não spam</div></div>
+  <div class="flow-step"><div class="num">4</div><div class="txt"><strong>Bot chama ML API</strong> para buscar o texto completo da pergunta e os dados do produto anunciado</div></div>
+  <div class="flow-step"><div class="num">5</div><div class="txt"><strong>Bot busca no banco local</strong> a descrição do produto, estoque e instruções customizadas<br><code>SELECT * FROM products WHERE id = 'MLB999'</code></div></div>
+  <div class="flow-step"><div class="num">6</div><div class="txt"><strong>RAG Engine</strong> converte a pergunta em embedding (Gemini) e busca no histórico as 3–5 respostas mais similares para o mesmo produto via pgvector</div></div>
+  <div class="flow-step"><div class="num">7</div><div class="txt"><strong>Prompt montado</strong> para o Groq:<br>
+    → System prompt (tom de voz da Expert Racing)<br>
+    → Descrição do produto (Bling)<br>
+    → Estoque atual<br>
+    → Top 3 Q&As similares (RAG)<br>
+    → Pergunta do comprador</div></div>
+  <div class="flow-step"><div class="num">8</div><div class="txt"><strong>Groq (Llama 3.3 70B)</strong> gera resposta em &lt;1 segundo — grátis, 14.400 req/dia</div></div>
+  <div class="flow-step"><div class="num">9</div><div class="txt"><strong>Bot posta a resposta</strong> no ML via API: <code>POST /answers</code> — comprador recebe em &lt;2 segundos</div></div>
+  <div class="flow-step"><div class="num">10</div><div class="txt"><strong>Q&A salvo</strong> no banco com embedding → entra na base do RAG → próximas perguntas similares serão respondidas com esse contexto</div></div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- FLUXO DO SITE -->
+<h2>6. Fluxo do Site Vitrine</h2>
+
+<div class="flow">
+  <div class="flow-step"><div class="num">1</div><div class="txt"><strong>Visitante acessa</strong> expertracingparts.com.br e navega pelo catálogo</div></div>
+  <div class="flow-step"><div class="num">2</div><div class="txt"><strong>Site exibe</strong> produtos com imagem, título, preço, estoque e especificações — todos vindo do banco de dados (sincronizado com Bling)</div></div>
+  <div class="flow-step"><div class="num">3</div><div class="txt"><strong>Visitante clica</strong> "Comprar no Mercado Livre" → redirecionado para <code>mercadolivre.com.br/item/MLB999</code></div></div>
+  <div class="flow-step"><div class="num">4</div><div class="txt"><strong>Checkout acontece no ML</strong> — pagamento, frete, garantia, tudo pelo Mercado Livre</div></div>
+</div>
+
+<h2>7. Fluxo de Sincronização Bling → Banco</h2>
+
+<div class="flow">
+  <div class="flow-step"><div class="num">1</div><div class="txt"><strong>Setup inicial</strong> — Bot importa os 881 produtos do Bling via API: título, SKU, descrição, preço, custo, categoria</div></div>
+  <div class="flow-step"><div class="num">2</div><div class="txt"><strong>Job de hora em hora</strong> — verifica produtos modificados no Bling e atualiza o banco local (preço, descrição, estoque)</div></div>
+  <div class="flow-step"><div class="num">3</div><div class="txt"><strong>Webhook Bling (opcional)</strong> — se Bling enviar webhook quando produto muda, atualização é instantânea</div></div>
+  <div class="flow-step"><div class="num">4</div><div class="txt"><strong>Site sempre atualizado</strong> — exibe preço e estoque corretos em tempo real</div></div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- PAINEL ADMIN -->
+<h2>8. Painel de Administração</h2>
+
+<table>
+  <tr><th>Página</th><th>URL</th><th>Funcionalidade</th></tr>
+  <tr>
+    <td><strong>Dashboard</strong></td>
+    <td><code>/admin</code></td>
+    <td>Últimas 10 Q&As, taxa de sucesso, status do bot, quota Groq/Gemini</td>
+  </tr>
+  <tr>
+    <td><strong>Conectar ML</strong></td>
+    <td><code>/admin/conectar</code></td>
+    <td>Botão OAuth — feito uma única vez para vincular a conta Expert.Store</td>
+  </tr>
+  <tr>
+    <td><strong>Histórico Q&A</strong></td>
+    <td><code>/admin/historico</code></td>
+    <td>Tabela filtrável: Data, Produto, Pergunta, Resposta gerada, Status. Botão "Editar"</td>
+  </tr>
+  <tr>
+    <td><strong>Configurações</strong></td>
+    <td><code>/admin/configuracoes</code></td>
+    <td>Prompt global do bot, instruções por produto, tom de voz</td>
+  </tr>
+  <tr>
+    <td><strong>Sincronização</strong></td>
+    <td><code>/admin/sync</code></td>
+    <td>Status do último sync Bling, forçar sync manual, log de erros</td>
+  </tr>
+</table>
+
+<h3>Exemplo de tela de configuração do bot</h3>
+<pre>
+Prompt do sistema (global):
+┌────────────────────────────────────────────────────────┐
+│ Você é um atendente especialista em peças de alta     │
+│ performance da Expert Racing Parts. Responda de forma │
+│ técnica mas acessível. Mencione sempre o frete grátis │
+│ acima de R$300. Não ofereça desconto sem autorização. │
+│ Máximo 280 caracteres na resposta.                    │
+└────────────────────────────────────────────────────────┘
+
+Instruções por produto:
+┌─────────────────────────────┬──────────────────────────────────────┐
+│ Produto                     │ Instrução específica                 │
+├─────────────────────────────┼──────────────────────────────────────┤
+│ Bloco de Motor K24 Stage 1  │ Sempre mencionar compatibilidade     │
+│                             │ com Honda Civic e Accord             │
+├─────────────────────────────┼──────────────────────────────────────┤
+│ Suporte Filtro AP           │ Informar que vem com parafusos de    │
+│                             │ fixação inclusos no kit              │
+└─────────────────────────────┴──────────────────────────────────────┘
+</pre>
+
+<div class="page-break"></div>
+
+<!-- VARIÁVEIS DE AMBIENTE -->
+<h2>9. Variáveis de Ambiente (.env)</h2>
+
+<pre>
+# ========== MERCADO LIVRE ==========
+ML_APP_ID=SEU_APP_ID
+ML_APP_SECRET=SEU_APP_SECRET
+ML_REDIRECT_URI=https://expertracingparts.com.br/api/auth/callback
+
+# ========== BLING ==========
+BLING_CLIENT_ID=SEU_CLIENT_ID
+BLING_CLIENT_SECRET=SEU_CLIENT_SECRET
+
+# ========== IA (GRATUITAS) ==========
+GROQ_API_KEY=gsk_...          # groq.com → criar conta grátis
+GEMINI_API_KEY=AIza...         # aistudio.google.com → criar chave grátis
+
+# ========== BANCO DE DADOS ==========
+DATABASE_URL=postgresql://mlbot:senha@localhost:5432/mlbot
+
+# ========== SEGURANÇA ==========
+JWT_SECRET=chave-aleatoria-32-chars
+ENCRYPT_KEY=chave-para-criptografar-tokens
+WEBHOOK_HMAC_SECRET=segredo-para-validar-webhooks-do-ml
+
+# ========== APP ==========
+NODE_ENV=production
+NEXT_PUBLIC_SITE_URL=https://expertracingparts.com.br
+</pre>
+
+<div class="page-break"></div>
+
+<!-- SETUP HOSTINGER -->
+<h2>10. Setup do Servidor (Hostinger VPS)</h2>
+
+<h3>Especificações do VPS recomendado</h3>
+<table>
+  <tr><th>Recurso</th><th>Mínimo</th><th>Recomendado</th></tr>
+  <tr><td>vCPU</td><td>1</td><td>2</td></tr>
+  <tr><td>RAM</td><td>2 GB</td><td>4 GB</td></tr>
+  <tr><td>Disco</td><td>20 GB SSD</td><td>60 GB SSD</td></tr>
+  <tr><td>OS</td><td colspan="2">Ubuntu 22.04 LTS</td></tr>
+  <tr><td>Custo</td><td colspan="2"><strong>~R$60/mês</strong></td></tr>
+</table>
+
+<h3>Passo a passo de instalação</h3>
+<pre>
+# 1. Atualizar sistema
+sudo apt update && sudo apt upgrade -y
+
+# 2. Instalar Node.js 20 LTS
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# 3. Instalar PostgreSQL + pgvector
+sudo apt install -y postgresql postgresql-contrib
+sudo -u postgres psql -c "CREATE EXTENSION vector;"
+
+# 4. Clonar o projeto
+git clone https://github.com/seuuser/ml-bot.git /opt/ml-bot
+cd /opt/ml-bot && npm install
+
+# 5. Configurar banco
+sudo -u postgres createdb mlbot
+npm run db:migrate
+
+# 6. Configurar variáveis de ambiente
+cp .env.example .env
+nano .env  # preencher com as credenciais
+
+# 7. Build e iniciar com PM2
+npm run build
+npm install -g pm2
+pm2 start npm --name "ml-bot" -- start
+pm2 save && pm2 startup
+
+# 8. SSL com Let's Encrypt
+sudo snap install certbot --classic
+sudo certbot certonly --standalone -d expertracingparts.com.br
+# Renovação automática via cron
+</pre>
+
+<div class="page-break"></div>
+
+<!-- ROADMAP -->
+<h2>11. Roadmap de Implementação</h2>
+
+<div class="phase ph1">
+  <div class="phase-header"><span>⚡ FASE 1 — MVP (2 semanas)</span><span>Semanas 1–2</span></div>
+  <div class="phase-body">
+    <li>Setup Hostinger VPS + PostgreSQL + domínio</li>
+    <li>Integração OAuth com Mercado Livre (painel admin)</li>
+    <li>Webhook receiver + bot básico (Groq, sem RAG)</li>
+    <li>Sincronização inicial Bling → banco (881 produtos)</li>
+    <li>Site vitrine mínimo (listagem + detalhe + botão ML)</li>
+    <li>Painel admin mínimo (dashboard + histórico)</li>
+    <li><strong>✅ Entrega: bot respondendo perguntas ao vivo no ML</strong></li>
+  </div>
+</div>
+
+<div class="phase ph2">
+  <div class="phase-header"><span>🧠 FASE 2 — RAG (1 semana)</span><span>Semana 3</span></div>
+  <div class="phase-body">
+    <li>Integração Gemini embeddings</li>
+    <li>pgvector configurado + índice de busca semântica</li>
+    <li>RAG Engine: busca Q&As similares antes de gerar resposta</li>
+    <li>Respostas ficam progressivamente mais precisas</li>
+    <li><strong>✅ Entrega: bot com memória e contexto histórico</strong></li>
+  </div>
+</div>
+
+<div class="phase ph3">
+  <div class="phase-header"><span>🎨 FASE 3 — Polish (1 semana)</span><span>Semana 4</span></div>
+  <div class="phase-body">
+    <li>Painel admin completo (config, sync, stats)</li>
+    <li>Site vitrine com design polido (filtros, busca, categorias)</li>
+    <li>Retry queue para webhooks falhos</li>
+    <li>Logs estruturados + alertas de falha</li>
+    <li>Job de sincronização automática (cron a cada 1h)</li>
+    <li><strong>✅ Entrega: sistema pronto para produção</strong></li>
+  </div>
+</div>
+
+<div class="phase ph4">
+  <div class="phase-header"><span>📈 FASE 4 — Escala (futuro)</span><span>Conforme demanda</span></div>
+  <div class="phase-body">
+    <li>Suporte a múltiplos sellers (SaaS)</li>
+    <li>Monitoramento (Sentry, DataDog)</li>
+    <li>PostgreSQL gerenciado (Supabase)</li>
+    <li>Cobrança por cliente (R$199–299/mês)</li>
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CUSTOS -->
+<h2>12. Custos Operacionais</h2>
+
+<table>
+  <tr><th>Serviço</th><th>Custo</th><th>Observação</th></tr>
+  <tr><td>Hostinger VPS (2vCPU/4GB)</td><td class="blue">R$60/mês</td><td>Site + Bot + Banco tudo junto</td></tr>
+  <tr><td>Domínio (.com.br)</td><td>R$80 (one-time)</td><td>Registro.br ou Hostinger</td></tr>
+  <tr><td>SSL (Let's Encrypt)</td><td class="green">Grátis</td><td>Renovação automática</td></tr>
+  <tr><td>Groq API (IA)</td><td class="green">Grátis</td><td>14.400 req/dia → suficiente para qualquer seller</td></tr>
+  <tr><td>Gemini API (embeddings)</td><td class="green">Grátis</td><td>1.500 req/min</td></tr>
+  <tr><td>Mercado Livre API</td><td class="green">Grátis</td><td>OAuth + Webhooks</td></tr>
+  <tr><td>Bling API</td><td class="green">Grátis</td><td>Cliente já paga o Bling</td></tr>
+</table>
+
+<div class="cost-total">
+  <div class="value">R$60/mês</div>
+  <div class="label">Custo total de infraestrutura (após R$80 one-time de domínio)</div>
+</div>
+
+<h2>13. O que o cliente precisa providenciar</h2>
+
+<table>
+  <tr><th>Item</th><th>Status</th><th>Como obter</th></tr>
+  <tr><td>Bling (conta + API)</td><td class="green">✅ Disponível</td><td>Já tem acesso. Criar App em bling.com.br/Api</td></tr>
+  <tr><td>Mercado Livre OAuth</td><td class="red">❌ Pendente</td><td>Criar App em developers.mercadolibre.com</td></tr>
+  <tr><td>Hostinger VPS</td><td class="red">❌ Pendente</td><td>Criar em hostinger.com.br (~R$60/mês)</td></tr>
+  <tr><td>Groq API Key</td><td class="red">❌ Pendente</td><td>Criar conta grátis em console.groq.com</td></tr>
+  <tr><td>Gemini API Key</td><td class="red">❌ Pendente</td><td>Criar chave grátis em aistudio.google.com</td></tr>
+  <tr><td>Domínio</td><td>❓ Verificar</td><td>expertracingparts.com.br — já tem?</td></tr>
+</table>
+
+<div class="highlight-box">
+  <strong>⭐ RESUMO EXECUTIVO:</strong><br><br>
+  Sistema composto por <strong>3 partes integradas</strong>: (1) <strong>Bot ML</strong> que responde perguntas em &lt;2 segundos usando IA gratuita contextualizada com dados dos 881 produtos; (2) <strong>Site Vitrine</strong> que exibe o catálogo sincronizado do Bling e redireciona compradores para o ML; (3) <strong>Painel Admin</strong> para o cliente gerenciar tudo. Tudo hospedado em um único VPS Hostinger por R$60/mês. MVP em 2 semanas, sistema completo em 4 semanas.
+</div>
+
+</body>
+</html>

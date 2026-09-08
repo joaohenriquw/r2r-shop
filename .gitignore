@@ -1,0 +1,62 @@
+# === Segredos (NUNCA versionar) ===
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# === Node / Next.js ===
+node_modules/
+.next/
+out/
+dist/
+build/
+.turbo/
+
+# === Vercel / deploy ===
+.vercel/
+.netlify/
+
+# === Logs ===
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# === Editor / OS ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# === TypeScript ===
+*.tsbuildinfo
+next-env.d.ts
+
+# === Backups / artefatos temporários ===
+*.zip
+*.tar.gz
+ml-bot-backup*
+r2r-shop-backup*
+r2r-shop-entrega*
+guideline-tmp/
+
+# === Handoff (contém referências a paths/credenciais internas) ===
+HANDOFF.md
+
+# === Bot ML descontinuado — arquivado, não subir ===
+src/
+docker-compose.yml
+package-lock.json
+
+# === Configurações locais do Claude Code / Superpowers (não versionar) ===
+.claude/
+.superpowers/
+CLAUDE.md
+AGENTS.md
+GEMINI.md

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot E-Commerce - Análise de Arquitetura</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .page-break {
+            page-break-after: always;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+        h1 {
+            color: #1a365d;
+            font-size: 32px;
+            margin: 30px 0 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #2d3748;
+            font-size: 20px;
+            margin: 25px 0 15px;
+            border-bottom: 2px solid #4a5568;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #4a5568;
+            font-size: 14px;
+            margin: 15px 0 10px;
+            font-weight: bold;
+        }
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 16px;
+            margin: 10px 0 30px;
+        }
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .green {
+            color: #22863a;
+        }
+        .red {
+            color: #e53e3e;
+        }
+        .highlight {
+            background: #f0fdf4;
+            border-left: 4px solid #22863a;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        th {
+            background: #2d3748;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+        }
+        td {
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+        }
+        tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        .code-block {
+            background: #f7fafc;
+            border-left: 4px solid #4a5568;
+            padding: 12px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .comparison-box {
+            border: 2px solid #cbd5e1;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .comparison-box h4 {
+            margin-top: 0;
+            font-size: 14px;
+        }
+        .vantagens {
+            border-left: 4px solid #22863a;
+        }
+        .desvantagens {
+            border-left: 4px solid #e53e3e;
+        }
+        .cover {
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+        .date-footer {
+            text-align: center;
+            color: #718096;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="cover">
+    <h1>🤖 Bot de Respostas Automáticas<br>+ E-commerce Sincronizado</h1>
+    <p class="subtitle">Análise de Arquitetura e Opções de Implementação</p>
+    <p class="subtitle" style="margin-top: 50px;">Mercado Livre + Bling ERP + Next.js/Tray</p>
+    <div class="date-footer">
+        <p>Data: 18 de junho de 2026</p>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ÍNDICE -->
+<h2>📑 Índice</h2>
+<ol>
+    <li>Visão Geral do Projeto</li>
+    <li>Opção A: Integração com Tray (SaaS)</li>
+    <li>Opção B: Site Novo em Next.js ⭐ RECOMENDADO</li>
+    <li>Comparação Lado a Lado</li>
+    <li>Arquitetura Técnica Detalhada</li>
+    <li>Modelo de Dados (PostgreSQL)</li>
+    <li>Fluxos de Dados</li>
+    <li>Estimativa de Custos</li>
+    <li>Próximos Passos</li>
+</ol>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 1 -->
+<h2>1. Visão Geral do Projeto</h2>
+
+<h3>Objetivo</h3>
+<p>Montar um sistema integrado que sincroniza catálogo (Bling → Mercado Livre + Site), com bot automático respondendo perguntas contextualizadas com dados do produto.</p>
+
+<h3>Componentes Principais</h3>
+<ul>
+    <li>✓ Banco de dados centralizado (PostgreSQL)</li>
+    <li>✓ Bot respondedor automático (Node.js + Groq IA)</li>
+    <li>✓ Sincronização Bling ↔ Banco ↔ Mercado Livre</li>
+    <li>✓ Site/vitrine (Tray existente OU Next.js novo)</li>
+    <li>✓ Painel de administração</li>
+</ul>
+
+<h3>Contexto Atual</h3>
+<ul>
+    <li><strong>Cliente usa:</strong> Bling (ERP), Mercado Livre (vendas), Tray (e-commerce)</li>
+    <li><strong>Desafio:</strong> Sem acesso ao código-fonte da Tray, precisa sincronizar dados</li>
+    <li><strong>Solução:</strong> Banco de dados central que medeia todas as integrações</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 2 -->
+<h2>2. Opção A: Integração com Tray (SaaS Existente)</h2>
+
+<h3>Descrição</h3>
+<p>Manter a plataforma Tray existente e integrar o bot + banco de dados via APIs.</p>
+
+<h3>Arquitetura</h3>
+<div class="code-block">Banco de Dados Central
+        ↓↑
+TRAY (SaaS) ←→ Bling API ←→ Mercado Livre API
+        │
+   Bot Server</div>
+
+<h3>Vantagens</h3>
+<ul>
+    <li><span class="green">✓</span> Cliente continua usando Tray (familiarizado)</li>
+    <li><span class="green">✓</span> Sem necessidade de reescrever site</li>
+    <li><span class="green">✓</span> Bot pode estar integrado via webhook</li>
+</ul>
+
+<h3>Desvantagens</h3>
+<ul>
+    <li><span class="red">✗</span> Tray é caro (R$200–500/mês)</li>
+    <li><span class="red">✗</span> API Tray é limitada (nem tudo customiza)</li>
+    <li><span class="red">✗</span> Tray não redireciona fácil para Mercado Livre</li>
+    <li><span class="red">✗</span> Sincronização Bling ↔ Tray é complexa</li>
+    <li><span class="red">✗</span> Pouco controle sobre fluxo de dados</li>
+    <li><span class="red">✗</span> Custo total mais elevado (Tray + Bot + Banco)</li>
+</ul>
+
+<h3>Custo Mensal</h3>
+<ul>
+    <li>Tray: R$200–500</li>
+    <li>Banco + Bot: R$60</li>
+    <li><strong>Total: R$260–560/mês</strong></li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 3 -->
+<h2>3. Opção B: Site Novo em Next.js ⭐ RECOMENDADO</h2>
+
+<h3>Descrição</h3>
+<p>Construir um novo site e-commerce (Next.js) que sincroniza com Bling e Mercado Livre, com bot integrado nativamente.</p>
+
+<h3>Arquitetura</h3>
+<div class="code-block">Hostinger VPS
+├─ Next.js App (site + admin)
+│  ├─ /produtos (catálogo)
+│  ├─ /admin (painel)
+│  └─ /api (bot webhook)
+└─ PostgreSQL (banco local)</div>
+
+<h3>Vantagens</h3>
+<ul>
+    <li><span class="green">✓</span> 100% customizável (controle total)</li>
+    <li><span class="green">✓</span> Custo menor (R$60/mês vs R$200+ Tray)</li>
+    <li><span class="green">✓</span> Sincronização Bling perfeita</li>
+    <li><span class="green">✓</span> Bot integrado nativamente</li>
+    <li><span class="green">✓</span> Redireciona fácil para Mercado Livre</li>
+    <li><span class="green">✓</span> Escalável sem limitações de plataforma</li>
+    <li><span class="green">✓</span> Dados sempre atualizados em tempo real</li>
+</ul>
+
+<h3>Desvantagens</h3>
+<ul>
+    <li><span class="red">✗</span> Precisa implementar do zero (~2-3 semanas MVP)</li>
+    <li><span class="red">✗</span> Cliente não usa mais Tray (migração necessária)</li>
+</ul>
+
+<h3>Custo Mensal</h3>
+<ul>
+    <li>Hostinger VPS: R$60</li>
+    <li>APIs (Groq, Gemini, ML, Bling): Grátis</li>
+    <li><strong>Total: R$60/mês (+ R$80 domínio one-time)</strong></li>
+</ul>
+
+<div class="highlight">
+    <strong>⭐ Por que Opção B é melhor:</strong><br>
+    Economia de R$2.320–5.920/ano + controle total + sincronização perfeita + bot nativo.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 4 -->
+<h2>4. Comparação Lado a Lado</h2>
+
+<table>
+    <tr>
+        <th>Critério</th>
+        <th>Opção A (Tray)</th>
+        <th>Opção B (Next.js)</th>
+    </tr>
+    <tr>
+        <td><strong>Custo Mensal</strong></td>
+        <td>R$260–560/mês</td>
+        <td>R$60/mês</td>
+    </tr>
+    <tr>
+        <td><strong>Controle</strong></td>
+        <td>Limitado (SaaS)</td>
+        <td>100% customizável</td>
+    </tr>
+    <tr>
+        <td><strong>Sincronização Bling</strong></td>
+        <td>Complexa/limitada</td>
+        <td>Nativa e fácil</td>
+    </tr>
+    <tr>
+        <td><strong>Redirecionamento ML</strong></td>
+        <td>Difícil</td>
+        <td>Fácil (5 min)</td>
+    </tr>
+    <tr>
+        <td><strong>Bot Integrado</strong></td>
+        <td>Separado</td>
+        <td>Nativo</td>
+    </tr>
+    <tr>
+        <td><strong>Tempo Implementação</strong></td>
+        <td>1-2 semanas</td>
+        <td>2-3 semanas (MVP)</td>
+    </tr>
+    <tr>
+        <td><strong>Escalabilidade</strong></td>
+        <td>Limitada pela plataforma</td>
+        <td>Sem limites</td>
+    </tr>
+    <tr>
+        <td><strong>Recomendação</strong></td>
+        <td>❌ Não</td>
+        <td><strong style="color: #22863a;">✅ SIM</strong></td>
+    </tr>
+</table>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 5 -->
+<h2>5. Arquitetura Técnica Detalhada (Opção B)</h2>
+
+<h3>Stack Tecnológico</h3>
+
+<table>
+    <tr>
+        <th>Camada</th>
+        <th>Tecnologia</th>
+        <th>Por quê</th>
+    </tr>
+    <tr>
+        <td>Servidor Web</td>
+        <td>Node.js 20 LTS + Fastify</td>
+        <td>Leve, ótimo para I/O assíncrono</td>
+    </tr>
+    <tr>
+        <td>Framework</td>
+        <td>Next.js 15 (App Router)</td>
+        <td>SSR, API routes, full-stack</td>
+    </tr>
+    <tr>
+        <td>Banco de Dados</td>
+        <td>PostgreSQL 15 + pgvector</td>
+        <td>Relacional + busca vetorial (RAG)</td>
+    </tr>
+    <tr>
+        <td>IA Generativa</td>
+        <td>Groq API (Llama 3.3 70B)</td>
+        <td>Grátis: 14.400 req/dia, &lt;1s resposta</td>
+    </tr>
+    <tr>
+        <td>Embeddings</td>
+        <td>Google Gemini text-embedding</td>
+        <td>Grátis: 1.500 req/min</td>
+    </tr>
+    <tr>
+        <td>Autenticação ML</td>
+        <td>OAuth 2.0 (Mercado Livre)</td>
+        <td>Padrão oficial, token auto-renova</td>
+    </tr>
+    <tr>
+        <td>Hosting</td>
+        <td>Hostinger VPS 2vCPU/4GB</td>
+        <td>~R$60/mês, suficiente para MVP</td>
+    </tr>
+</table>
+
+<h3>Módulos do Servidor</h3>
+<ul>
+    <li><strong>🔌 Webhook Receiver:</strong> Recebe notificações do ML em tempo real</li>
+    <li><strong>🔍 ML API Client:</strong> Busca pergunta + dados do produto</li>
+    <li><strong>📚 RAG Engine:</strong> Busca contexto (histórico Q&A similar)</li>
+    <li><strong>💭 Prompt Builder:</strong> Monta prompt com contexto completo</li>
+    <li><strong>🧠 Groq Client:</strong> Envia para IA, recebe resposta</li>
+    <li><strong>📤 Answer Poster:</strong> Posta resposta no ML via API</li>
+    <li><strong>💾 Database Logger:</strong> Salva Q&A + gera embedding</li>
+    <li><strong>⚙️ Sync Manager:</strong> Sincroniza Bling ↔ Banco ↔ ML</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 6 -->
+<h2>6. Modelo de Dados (PostgreSQL)</h2>
+
+<h3>Tabelas Principais</h3>
+
+<h4>• products (Catálogo sincronizado)</h4>
+<div class="code-block">id | sku | ml_item_id
+title | description | price | cost
+category | image_url | sync_status | last_synced_at</div>
+
+<h4>• inventory (Estoque em tempo real)</h4>
+<div class="code-block">product_id | quantity | reserved | last_updated</div>
+
+<h4>• qa_history (Histórico de perguntas/respostas)</h4>
+<div class="code-block">id | product_id | question | answer
+embedding (vector 768D) | answered_at | status</div>
+
+<h4>• ml_credentials (Tokens de autenticação - encrypted)</h4>
+<div class="code-block">seller_id | access_token | refresh_token | expires_at</div>
+
+<h4>• sync_jobs (Log de sincronizações)</h4>
+<div class="code-block">id | job_type | status | error_message | last_run_at</div>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 7 -->
+<h2>7. Fluxos de Dados</h2>
+
+<h3>Fluxo 1: Sincronização Inicial (Dia 1)</h3>
+<ol>
+    <li>Cliente fornece credenciais Bling + OAuth Mercado Livre</li>
+    <li>Bot faz import inicial: Bling → Banco local</li>
+    <li>Bot valida: estoque, preços, descrições</li>
+    <li>Site fica online: seu-site.com</li>
+</ol>
+
+<h3>Fluxo 2: Sincronização Contínua (Daily)</h3>
+<ol>
+    <li>Job 1 (a cada hora): Bling → Banco (produtos, preços, estoque)</li>
+    <li>Job 2 (a cada 6h): Banco → Mercado Livre (atualiza anúncios)</li>
+    <li>Site sempre mostra dados frescos</li>
+</ol>
+
+<h3>Fluxo 3: Pergunta no Mercado Livre → Resposta Automática</h3>
+<div class="code-block">Comprador pergunta
+     ↓
+ML envia webhook (POST /webhook/questions)
+     ↓
+Bot valida HMAC signature
+     ↓
+Bot busca: pergunta + produto (ML API)
+     ↓
+Bot consulta: descrição + estoque (banco local)
+     ↓
+Bot consulta Bling: specs técnicas (opcional)
+     ↓
+RAG busca: 3-5 Q&As similares (pgvector)
+     ↓
+Groq gera resposta contextualizada (&lt;1s)
+     ↓
+Bot posta resposta no ML (API)
+     ↓
+Bot salva Q&A + embedding no banco
+     ↓
+Comprador recebe resposta (&lt;2s total)</div>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 8 -->
+<h2>8. Estimativa de Custos</h2>
+
+<h3>Opção A: Tray + Bot</h3>
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Custo</th>
+    </tr>
+    <tr>
+        <td>Tray (plano básico)</td>
+        <td>R$200–500/mês</td>
+    </tr>
+    <tr>
+        <td>Banco PostgreSQL (Hostinger)</td>
+        <td>R$60/mês</td>
+    </tr>
+    <tr>
+        <td>Bot Server (Hostinger)</td>
+        <td>R$0 (compartilhado)</td>
+    </tr>
+    <tr>
+        <td>APIs (Groq, Gemini, ML)</td>
+        <td>Grátis</td>
+    </tr>
+    <tr style="font-weight: bold; background: #ffcccc;">
+        <td>TOTAL MÊS 1</td>
+        <td>R$260–560/mês</td>
+    </tr>
+    <tr style="font-weight: bold; background: #ffcccc;">
+        <td>TOTAL ANO 1</td>
+        <td>R$3.120–6.720</td>
+    </tr>
+</table>
+
+<h3>Opção B: Site Next.js + Bot ⭐ RECOMENDADO</h3>
+<table>
+    <tr>
+        <th>Item</th>
+        <th>Custo</th>
+    </tr>
+    <tr>
+        <td>Hostinger VPS (2vCPU/4GB/60GB)</td>
+        <td>R$60/mês</td>
+    </tr>
+    <tr>
+        <td>Domínio</td>
+        <td>R$80 (one-time)</td>
+    </tr>
+    <tr>
+        <td>APIs (Groq, Gemini, ML, Bling)</td>
+        <td>Grátis</td>
+    </tr>
+    <tr>
+        <td>SSL (Let's Encrypt)</td>
+        <td>Grátis</td>
+    </tr>
+    <tr style="font-weight: bold; background: #ccffcc;">
+        <td>TOTAL MÊS 1</td>
+        <td>R$60/mês + R$80</td>
+    </tr>
+    <tr style="font-weight: bold; background: #ccffcc;">
+        <td>TOTAL MESES 2+</td>
+        <td>R$60/mês</td>
+    </tr>
+    <tr style="font-weight: bold; background: #ccffcc;">
+        <td>TOTAL ANO 1</td>
+        <td>R$800</td>
+    </tr>
+</table>
+
+<h3>Economia</h3>
+<div class="highlight">
+    <strong>💰 Opção B economiza R$2.320–5.920/ano</strong> em hospedagem, além de ter melhor escalabilidade e controle.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SEÇÃO 9 -->
+<h2>9. Próximos Passos</h2>
+
+<h3>Se optar por Opção B (Recomendado):</h3>
+<ol>
+    <li><strong>✅ Coletar credenciais:</strong> Bling API key, OAuth ML, acesso Banco de Dados</li>
+    <li><strong>✅ Mapeamento de dados:</strong> Quais campos sincronizar, qual estoque usar</li>
+    <li><strong>✅ Definir tom de voz:</strong> Como o bot deve responder (instrução para IA)</li>
+    <li><strong>✅ Setup inicial:</strong> Criar VPS, banco PostgreSQL, deploy inicial</li>
+    <li><strong>✅ Fase 1 (MVP - 2-3 semanas):</strong> Bot + sincronização básica</li>
+    <li><strong>✅ Teste com 1-2 clientes piloto:</strong> Validar qualidade de respostas</li>
+    <li><strong>✅ Fase 2 (RAG - 1 semana):</strong> Adicionar busca semântica via Gemini</li>
+    <li><strong>✅ Fase 3 (Polish - 1 semana):</strong> Painel admin completo, monitoramento</li>
+</ol>
+
+<div class="highlight">
+    <strong>⭐ RECOMENDAÇÃO FINAL:</strong> Optar pela <strong>Opção B (Next.js)</strong>. Economia de custos,
+    controle total, melhor sincronização e bot integrado. MVP funcional em 2-3 semanas.
+</div>
+
+</body>
+</html>
